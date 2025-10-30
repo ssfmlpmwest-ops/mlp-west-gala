@@ -404,7 +404,7 @@ export function RegistrationForm() {
               name="mobile"
               value={formData.mobile}
               onChange={handleInputChange}
-              placeholder="9876543210"
+              placeholder="Enter your mobile number"
               maxLength={10}
               disabled={checkStatus === "found"}
               pattern="[0-9]{10}"
@@ -455,7 +455,7 @@ export function RegistrationForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                placeholder="John Doe"
+                placeholder="Enter your full name"
                 readOnly={checkStatus === "found"}
                 className={errors.name ? "border-red-500" : ""}
               />

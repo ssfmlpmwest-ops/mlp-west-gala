@@ -167,20 +167,20 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Text Content */}
           <motion.div
-            className="px-4 lg:px-8 flex flex-col gap-6 justify-center"
+            className="px-2 lg:px-8 flex flex-col gap-6 justify-center"
             variants={itemVariants}
           >
             <motion.div variants={titleVariants}>
-              <h1 className="text-4xl lg:text-5xl font-light mb-4">
+              <h1 className="text-4xl lg:text-5xl font-light  tracking-tight">
                 <span className="block text-gray-800 mb-2">No Cap,</span>
                 <span className="block font-bold text-secondary drop-shadow-[0_0_20px_rgba(239,68,68,0.3)]">
-                  It's Tomorrow
+                  It's Tomorrow 
                 </span>
               </h1>
             </motion.div>
 
             <motion.p
-              className="text-sm lg:text-base text-gray-700 leading-relaxed"
+              className="text-sm lg:text-base text-gray-700 leading-relaxed "
               variants={itemVariants}
             >
               Students' Gala, a district-level celebration of knowledge,
@@ -194,7 +194,7 @@ const HeroSection = () => {
 
           {/* Right Column - Logo and Info */}
           <motion.div
-            className="flex flex-col gap-6 justify-center items-center px-4 lg:px-8 max-w-md w-full mx-auto"
+            className="flex flex-col gap-6 justify-center items-center px-2 lg:px-8 max-w-md w-full mx-auto"
             variants={itemVariants}
           >
             {/* Logo */}
@@ -217,7 +217,7 @@ const HeroSection = () => {
               className="flex flex-row items-center justify-between w-full gap-2 "
               variants={infoVariants}
             >
-              <div className="flex items-start gap-2 text-lg">
+              <div className="flex items-start gap-2 md:text-lg text-base">
                 <Calendar className="w-6 h-6 text-secondary flex-shrink-0" />
                 <div className="flex items-center gap-1 flex-wrap">
                   <span className="font-light">2025</span>
@@ -229,7 +229,7 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-lg">
+              <div className="flex items-center gap-2 md:text-lg text-base">
                 <MapPin className="w-6 h-6 text-secondary flex-shrink-0" />
                 <span className="font-semibold text-secondary">Wandoor</span>
               </div>
