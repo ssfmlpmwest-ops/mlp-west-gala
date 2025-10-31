@@ -337,7 +337,7 @@ export function RegistrationForm() {
           </h1>
         </div>
         <p className="text-foreground/60">
-          Register and get your ticket for the Higher Secondary Student's Gala
+          Let’s meet at the Gala! Register now.
         </p>
       </div>
 
