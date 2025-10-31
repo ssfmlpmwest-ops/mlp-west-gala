@@ -337,7 +337,7 @@ export function RegistrationForm() {
           </h1>
         </div>
         <p className="text-foreground/60">
-          Check your registration or register for the event
+          Register and get your ticket for the Higher Secondary Student's Gala
         </p>
       </div>
 
@@ -355,7 +355,7 @@ export function RegistrationForm() {
               onClick={resetForm}
               className="mt-2"
             >
-              Register Different User
+              Register Different student
             </Button>
           </div>
         </div>
