@@ -33,14 +33,14 @@ export default function Home() {
           height={746}
         />
         <Image
-          className="opacity-50 absolute -left-24   -botttom-32 -z-10 w-96 rotate-45"
+          className="opacity-50 absolute -left-24 blur-xs  -botttom-32 -z-10 w-96 rotate-45"
           src="/ticket-demo.jpg"
           alt="dotted background"
           width={1688}
           height={3000}
         />
         <Image
-          className="opacity-50 absolute -right-24   -top-32 -z-10 w-96 -rotate-45"
+          className="opacity-50 absolute -right-24 blur-xs  -top-32 -z-10 w-96 -rotate-45"
           src="/ticket-demo.jpg"
           alt="dotted background"
           width={1688}
