@@ -16,11 +16,26 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Download, Search, Users, CheckCircle, Clock } from "lucide-react";
+import {
+  Download,
+  Search,
+  Users,
+  CheckCircle,
+  Clock,
+  Share2,
+} from "lucide-react";
 import { Checkin, Registration } from "@/lib/generated/prisma/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { DIVISIONS } from "@/lib/conts";
 
 interface Attendee extends Registration {
-  Checkin: Checkin;
+  Checkin: Checkin | null;
 }
 
 interface Stats {
@@ -54,6 +69,7 @@ export function AdminDashboard() {
   const [filteredAttendees, setFilteredAttendees] = useState<Attendee[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [division, setDivision] = useState("all");
 
   useEffect(() => {
     // Fetch dashboard data
@@ -77,13 +93,15 @@ export function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    const filtered = attendees.filter(
-      (attendee) =>
-        attendee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        attendee.mobile.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = attendees.filter((attendee) =>
+      (attendee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        attendee.mobile.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      division !== "all"
+        ? attendee.division === division
+        : true
     );
     setFilteredAttendees(filtered);
-  }, [searchTerm, attendees]);
+  }, [searchTerm, attendees, division]);
 
   const handleExportCSV = () => {
     const headers = [
@@ -119,6 +137,16 @@ export function AdminDashboard() {
     a.href = url;
     a.download = `gala-attendees-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
+  };
+  const shareDivisionReport = () => {
+    let message = stats.divisionBreakdown
+      .map((d, i) => `${i + 1}. ${d.division} - ${d.registerations}`)
+      .join("\n");
+    message = `HSS Student's Gala\nMalappuram East Report\n\nTotal Registrations: ${stats.totalRegistrations}\n\n${message}`;
+    const time = new Date().toLocaleString();
+    message += `\n\nGenerated at: ${time}`;
+    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
   };
 
   if (loading) {
@@ -217,8 +245,21 @@ export function AdminDashboard() {
         </Card> */}
 
         {/* School Breakdown */}
+
         <Card className="p-6 ">
-          <h3 className="text-lg font-bold mb-4">Registrations by Divisons</h3>
+          <div className="flex gap-2 flex-wrap justify-between">
+            <h3 className="text-lg font-bold mb-4">
+              Registrations by Divisons
+            </h3>
+            <Button
+              onClick={shareDivisionReport}
+              className="bg-green-600 hover:bg-green-600/90"
+            >
+              <Share2 className="w-4 h-4 mr-2" />
+              Share report
+            </Button>
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -259,22 +300,44 @@ export function AdminDashboard() {
 
       {/* Attendee List */}
       <Card className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold">Attendee List</h3>
-          <Button
-            onClick={handleExportCSV}
-            className="bg-primary hover:bg-primary/90"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Export CSV
-          </Button>
+        <div className="flex items-center justify-between mb-6 flex-wrap">
+          <h3 className="text-lg font-bold w-max  flex-1">Attendee List</h3>
+          <div className="flex gap-2 flex-wrap">
+            <div className="max-w-60">
+              <Select
+                value={division}
+                onValueChange={(value) => setDivision(value)}
+              >
+                <SelectTrigger id="division">
+                  <SelectValue placeholder="Select division" />
+                </SelectTrigger>
+
+                <SelectContent>
+                  <SelectItem value={"all"}>All Divisions</SelectItem>
+                  {DIVISIONS.map((div) => (
+                    <SelectItem key={div} value={div}>
+                      {div}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <Button
+              onClick={handleExportCSV}
+              className="bg-primary hover:bg-primary/90"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export CSV
+            </Button>
+          </div>
         </div>
 
         {/* Search */}
         <div className="mb-6 relative">
           <Search className="absolute left-3 top-3 w-4 h-4 text-foreground/40" />
           <Input
-            placeholder="Search by name or email..."
+            placeholder="Search by name or mobile..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AlertCircle, CheckCircle, Camera, X } from "lucide-react";
 import { createNPId } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface CheckinResult {
   success: boolean;
@@ -29,6 +30,7 @@ export function QRScanner() {
   const [result, setResult] = useState<CheckinResult | null>(null);
   const [manualTicketId, setManualTicketId] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!scanning) return;
@@ -103,6 +105,7 @@ export function QRScanner() {
 
       const data = await response.json();
       setResult(data);
+        router.refresh();
 
       // Auto-reset after 3 seconds
       setTimeout(() => {
