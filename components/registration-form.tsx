@@ -39,7 +39,7 @@ interface FormData {
   mobile: string;
   dob: string;
   class: "PLUS_ONE" | "PLUS_TWO" | string;
-  course: "SCIENCE" | "COMMERCE" | "HUMANITIES" | "VHSC" | string;
+  course: "SCIENCE" | "COMMERCE" | "HUMANITIES" | "VHSE" | string;
   division: string;
   school: string;
 }
@@ -245,7 +245,7 @@ export function RegistrationForm() {
           | "SCIENCE"
           | "COMMERCE"
           | "HUMANITIES"
-          | "VHSC",
+          | "VHSE",
       });
 
       if (!response) {
@@ -617,7 +617,7 @@ export function RegistrationForm() {
       {showTicket && ticketData && (
         <div className="space-y-4 mt-6">
           <div
-            className="mx-auto lg:w-[422px] lg:h-[750px] w-[253.2px] h-[450px] sm:w-[337.6px] md:w-[388.24px] md:h-[690px] sm:h-[600px] relative "
+            className="mx-auto lg:w-[431.4px] lg:h-[768px] w-[251.65px] h-[448px] sm:w-[337.93px] md:w-[388.26px] md:h-[691.2px] sm:h-[601.6px] relative "
             // style={{
             //   position: "relative",
             //   width: `${1688 * 0.25}px`,
@@ -626,29 +626,29 @@ export function RegistrationForm() {
           >
             <div
               ref={ticketRef}
-              className="mx-auto lg:transform-[scale(0.25)] transform-[scale(0.15)] sm:transform-[sacle(0.20)] md:transform-[scale(0.23)]"
+              className="mx-auto lg:transform-[scale(0.6)] transform-[scale(0.35)] sm:transform-[sacle(0.47)] md:transform-[scale(0.54)]"
               style={{
                 position: "relative",
-                width: "1688px",
-                height: "3000px",
+                width: "719px",
+                height: "1280px",
                 transformOrigin: "top left",
               }}
             >
               <Image
                 src="/ticket.png"
-                width={1688}
-                height={3000}
+                width={719}
+                height={1280}
                 priority
                 alt="ticket"
                 className="h-full w-full"
               />
-              <div className=" absolute inset-x-0 top-[46.5%] w-full mx-auto ">
-                <div className="w-1/2 mx-auto flex flex-col gap-8">
-                  <div className="font-poppins font-semibold  flex flex-col leading-tight">
-                    <h4 className="text-white text-[60px]">
+              <div className=" absolute inset-x-0 top-[50%] w-full mx-auto ">
+                <div className="w-2/5 mx-auto flex flex-col gap-5">
+                  <div className="font-sans font-semibold  flex flex-col leading-tight">
+                    <h4 className="text-[#b61c1c] text-[25px]">
                       {createNPId(ticketData?.id || 500)}
                     </h4>
-                    <h2 className="text-[70px] text-orange-200">
+                    <h2 className="text-[33px] text-black capitalize">
                       {ticketData?.name || "Ajmal Yaseen"}
                     </h2>
                   </div>

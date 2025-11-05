@@ -23,6 +23,8 @@ import {
   CheckCircle,
   Clock,
   Share2,
+  Delete,
+  Trash,
 } from "lucide-react";
 import { Checkin, Registration } from "@/lib/generated/prisma/client";
 import {
@@ -71,24 +73,23 @@ export function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [division, setDivision] = useState("all");
-
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/admin/stats");
+      if (response.ok) {
+        const data = await response.json();
+        setStats(data.stats);
+        setAttendees(data.attendees);
+        setFilteredAttendees(data.attendees);
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     // Fetch dashboard data
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/admin/stats");
-        if (response.ok) {
-          const data = await response.json();
-          setStats(data.stats);
-          setAttendees(data.attendees);
-          setFilteredAttendees(data.attendees);
-        }
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
     fetchData();
   }, []);
@@ -147,11 +148,27 @@ export function AdminDashboard() {
     let message = stats.divisionBreakdown
       .map((d, i) => `${i + 1}. ${d.division} - ${d.registerations}`)
       .join("\n");
-    message = `HSS Student's Gala\nMalappuram East Report\n\nTotal Registrations: ${stats.totalRegistrations}\n\n${message}`;
+    message = `HSS Student's Gala\nThrissur District Report\n\nTotal Registrations: ${stats.totalRegistrations}\n\n${message}`;
     const time = new Date().toLocaleString();
     message += `\n\nGenerated at: ${time}`;
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
+  };
+  const handleDelete = async (attendee: Attendee) => {
+    if (window.confirm("Are you sure you want to delete this attendee?")) {
+      try {
+        await fetch("/api/admin/stats", {
+          method: "DELETE",
+          body: JSON.stringify({ id: attendee.id }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        fetchData();
+      } catch (error) {
+        console.error("Error deleting attendee:", error);
+      }
+    }
   };
 
   if (loading) {
@@ -363,6 +380,7 @@ export function AdminDashboard() {
                 <th className="text-left py-3 px-4 font-semibold">Mobile</th>
                 <th className="text-left py-3 px-4 font-semibold">DOB</th>
                 <th className="text-left py-3 px-4 font-semibold">Status</th>
+                <th className="text-left py-3 px-4 font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -393,6 +411,17 @@ export function AdminDashboard() {
                     >
                       {attendee.Checkin ? "Checked In" : "Pending"}
                     </span>
+                  </td>
+                  <td className="py-3 px-4">
+                    <div className="flex gap-2">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(attendee)}
+                      >
+                        <Trash className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}

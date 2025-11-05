@@ -49,5 +49,5 @@ enum Course {
   SCIENCE
   COMMERCE
   HUMANITIES
-  VHSC
+  VHSE
 }

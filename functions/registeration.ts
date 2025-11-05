@@ -8,7 +8,7 @@ export async function register(data: {
   dob: string;
   division: string;
   class: "PLUS_ONE" | "PLUS_TWO";
-  course: "SCIENCE" | "COMMERCE" | "HUMANITIES" | "VHSC";
+  course: "SCIENCE" | "COMMERCE" | "HUMANITIES" | "VHSE";
   school: string;
 }) {
   // TODO: implement registration logic

@@ -9,7 +9,7 @@ export const DIVISIONS = [
   "Wadakkanchery",
   "Chelakkara",
 ];
-export const COURSES = ["Commerce", "Science", "Humanities", "VHSC"];
+export const COURSES = ["Commerce", "Science", "Humanities", "VHSE"];
 export const SCHOOLS = [
   {
     name: "G. M. R. S. For Boys ThriThala",
