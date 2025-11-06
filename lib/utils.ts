@@ -9,15 +9,15 @@ export function createNPId(number: number): string {
   const absoluteNumber = Math.abs(number);
 
   // Convert to string and pad with leading zeros to make it 3 digits
-  const paddedNumber = absoluteNumber.toString().padStart(3, "0");
+  const paddedNumber = absoluteNumber.toString().padStart(4, "0");
 
   // Return with NP prefix
-  return `TCR${paddedNumber}`;
+  return `GALA${paddedNumber}`;
 }
 
 export function extractNumberFromNPId(npId: string): number {
   // Remove "NP" prefix and convert to number
-  const numberStr = npId.replace(/^TCR/i, ""); // case-insensitive removal
+  const numberStr = npId.replace(/^GALA/i, ""); // case-insensitive removal
 
   // Convert to number and return
   const number = parseInt(numberStr, 10);

@@ -109,7 +109,6 @@ export function AdminDashboard() {
     const headers = [
       "Ticket ID",
       "Name",
-      "Course",
       "Class",
       "School",
       "Division",
@@ -122,7 +121,6 @@ export function AdminDashboard() {
     const rows = attendees.map((a) => [
       createNPId(a.id),
       a.name,
-      a.course,
       a.class,
       a.school,
       a.division,
@@ -148,7 +146,7 @@ export function AdminDashboard() {
     let message = stats.divisionBreakdown
       .map((d, i) => `${i + 1}. ${d.division} - ${d.registerations}`)
       .join("\n");
-    message = `HSS Student's Gala\nThrissur District Report\n\nTotal Registrations: ${stats.totalRegistrations}\n\n${message}`;
+    message = `HSS Student's Gala\nMalappuram West District Report\n\nTotal Registrations: ${stats.totalRegistrations}\n\n${message}`;
     const time = new Date().toLocaleString();
     message += `\n\nGenerated at: ${time}`;
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
@@ -373,7 +371,6 @@ export function AdminDashboard() {
               <tr className="border-b border-border">
                 <th className="text-left py-3 px-4 font-semibold">Ticket ID</th>
                 <th className="text-left py-3 px-4 font-semibold">Name</th>
-                <th className="text-left py-3 px-4 font-semibold">Course</th>
                 <th className="text-left py-3 px-4 font-semibold">Class</th>
                 <th className="text-left py-3 px-4 font-semibold">Division</th>
                 <th className="text-left py-3 px-4 font-semibold">School</th>
@@ -391,9 +388,6 @@ export function AdminDashboard() {
                 >
                   <td className="py-3 px-4">{createNPId(attendee.id)}</td>
                   <td className="py-3 px-4">{attendee.name}</td>
-                  <td className="py-3 px-4 text-foreground/70">
-                    {attendee.course}
-                  </td>
                   <td className="py-3 px-4 text-foreground/70">
                     {attendee.class}
                   </td>

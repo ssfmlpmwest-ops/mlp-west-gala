@@ -20,7 +20,6 @@ model Registration {
   mobile    String
   dob       String
   class     Class
-  course    Course
   division  String
   school    String
   createdAt DateTime @default(now())

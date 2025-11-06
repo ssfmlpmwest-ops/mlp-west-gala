@@ -5,54 +5,41 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette to red and blue theme for gala event */
---background: oklch(0.98 0 0);
---foreground: oklch(0.18 0.02 260);
-
---card: oklch(1 0 0);
---card-foreground: oklch(0.18 0.02 260);
-
---popover: oklch(1 0 0);
---popover-foreground: oklch(0.18 0.02 260);
-
---primary: oklch(39.02% 0.10385 255.138); /* bright blue from logo */
---primary-foreground: oklch(0.99 0.02 260);
-
---secondary: oklch(0.7 0.12 210); /* light teal from logo */
---secondary-foreground: oklch(0.15 0.02 250);
-
---accent: oklch(0.78 0.15 90); /* yellow/golden accent */
---accent-foreground: oklch(0.15 0.02 260);
-
---muted: oklch(0.92 0.01 250);
---muted-foreground: oklch(0.45 0.02 260);
-
---destructive: oklch(0.55 0.22 30); /* warm orange-like tone */
---destructive-foreground: oklch(0.98 0 0);
-
---border: oklch(0.88 0.01 250);
---input: oklch(0.9 0.01 250);
---ring: oklch(39.02% 0.10385 255.138);
-
---chart-1: oklch(0.55 0.18 250); /* blue */
---chart-2: oklch(0.7 0.12 210); /* teal */
---chart-3: oklch(0.78 0.15 90); /* yellow */
---chart-4: oklch(0.45 0.08 280); /* navy/dark accent */
---chart-5: oklch(0.6 0.16 230); /* mid cyan */
-
---radius: 0.625rem;
-
---sidebar: oklch(0.98 0 0);
---sidebar-foreground: oklch(0.18 0.02 260);
---sidebar-primary: oklch(0.55 0.18 250);
---sidebar-primary-foreground: oklch(1 0 0);
---sidebar-accent: oklch(0.7 0.12 210);
---sidebar-accent-foreground: oklch(0.15 0.02 260);
---sidebar-border: oklch(0.9 0.01 250);
---sidebar-ring: oklch(0.55 0.18 250);
-
---font-poppins: 'Poppins', sans-serif;
-
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.55 0.25 15);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.45 0.22 260);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.92 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.55 0.25 15);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.55 0.25 15);
+  --chart-1: oklch(0.55 0.25 15);
+  --chart-2: oklch(0.45 0.22 260);
+  --chart-3: oklch(0.65 0.2 50);
+  --chart-4: oklch(0.5 0.18 200);
+  --chart-5: oklch(0.6 0.22 30);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.15 0 0);
+  --sidebar-primary: oklch(0.55 0.25 15);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.45 0.22 260);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.92 0 0);
+  --sidebar-ring: oklch(0.55 0.25 15);
+  --font-poppins: "Poppins", sans-serif;
+  --font-cooper: "Cooper Black Regular", sans-serif;
 }
 
 .dark {
@@ -130,8 +117,14 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-poppins: var(--font-poppins);
+  --font-cooper: var(--font-cooper);
 }
-
+@font-face {
+  font-family: "Cooper Black Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Cooper Black Regular"), url("./fonts/COOPBL.woff") format("woff");
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -158,5 +151,9 @@
   .poppins-bold {
     font-family: var(--font-poppins);
     font-weight: 700;
+  }
+  .cooper-regular {
+    font-family: "Cooper Black Regular";
+    font-weight: 400;
   }
 }

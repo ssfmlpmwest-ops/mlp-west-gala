@@ -39,7 +39,6 @@ interface FormData {
   mobile: string;
   dob: string;
   class: "PLUS_ONE" | "PLUS_TWO" | string;
-  course: "SCIENCE" | "COMMERCE" | "HUMANITIES" | "VHSE" | string;
   division: string;
   school: string;
 }
@@ -57,7 +56,6 @@ export function RegistrationForm() {
     mobile: "",
     dob: "",
     class: "",
-    course: "",
     division: "",
     school: "",
   });
@@ -179,13 +177,6 @@ export function RegistrationForm() {
     ) {
       newErrors.class = "Class is required";
     }
-    if (
-      !formData.course.trim() &&
-      !["SCIENCE", "COMMERCE", "HUMANITIES", "VHSC"].includes(formData.course)
-    ) {
-      newErrors.course = "Course is required";
-    }
-
     if (!formData.division) {
       newErrors.division = "Division is required";
     }
@@ -241,11 +232,6 @@ export function RegistrationForm() {
       const response = await register({
         ...formData,
         class: formData.class as "PLUS_ONE" | "PLUS_TWO",
-        course: formData.course as
-          | "SCIENCE"
-          | "COMMERCE"
-          | "HUMANITIES"
-          | "VHSE",
       });
 
       if (!response) {
@@ -335,7 +321,6 @@ export function RegistrationForm() {
       mobile: "",
       dob: "",
       class: "",
-      course: "",
       division: "",
       school: "",
     });
@@ -352,9 +337,7 @@ export function RegistrationForm() {
       <div className="text-center mb-8">
         <div className="flex justify-center items-center gap-3 mb-4">
           <Ticket className="w-8 h-8 text-primary" />
-          <h1 className="text-3xl font-bold text-foreground">
-            Get Your Ticket
-          </h1>
+          <h1 className="text-3xl font-bold text-secondary">Get Your Ticket</h1>
         </div>
         <p className="text-foreground/60">
           Let’s meet at the Gala! Register now.
@@ -468,24 +451,23 @@ export function RegistrationForm() {
             transition={{ duration: 0.3 }}
             className="space-y-4 pt-4 border-t border-border"
           >
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
-              <Input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Enter your full name"
-                readOnly={checkStatus === "found"}
-                className={errors.name ? "border-red-500" : ""}
-              />
-              {errors.name && (
-                <p className="text-sm text-red-600">{errors.name}</p>
-              )}
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2 w-full">
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name *</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your full name"
+                  readOnly={checkStatus === "found"}
+                  className={errors.name ? "border-red-500" : ""}
+                />
+                {errors.name && (
+                  <p className="text-sm text-red-600">{errors.name}</p>
+                )}
+              </div>
+              {/* <div className="space-y-2 w-full">
                 <Label htmlFor="course">Course *</Label>
                 <Select
                   value={formData.course}
@@ -509,7 +491,7 @@ export function RegistrationForm() {
                 {errors.course && (
                   <p className="text-sm text-red-600">{errors.course}</p>
                 )}
-              </div>
+              </div> */}
               <div className="space-y-2 w-full">
                 <Label htmlFor="class">Class *</Label>
                 <Select
@@ -617,7 +599,7 @@ export function RegistrationForm() {
       {showTicket && ticketData && (
         <div className="space-y-4 mt-6">
           <div
-            className="mx-auto lg:w-[431.4px] lg:h-[768px] w-[251.65px] h-[448px] sm:w-[337.93px] md:w-[388.26px] md:h-[691.2px] sm:h-[601.6px] relative "
+            className="mx-auto lg:w-[436.24px] lg:h-[774.9px] w-[255.36px] h-[453.6px] sm:w-[329.84px] md:w-[383.04px] md:h-[680.4px] sm:h-[585.9.6px] relative "
             // style={{
             //   position: "relative",
             //   width: `${1688 * 0.25}px`,
@@ -626,32 +608,24 @@ export function RegistrationForm() {
           >
             <div
               ref={ticketRef}
-              className="mx-auto lg:transform-[scale(0.6)] transform-[scale(0.35)] sm:transform-[sacle(0.47)] md:transform-[scale(0.54)]"
+              className="mx-auto lg:transform-[scale(0.41)] transform-[scale(0.24)] sm:transform-[sacle(0.31)] md:transform-[scale(0.36)]"
               style={{
                 position: "relative",
-                width: "719px",
-                height: "1280px",
+                width: "1064px",
+                height: "1890px",
                 transformOrigin: "top left",
               }}
             >
               <Image
                 src="/ticket.png"
-                width={719}
-                height={1280}
+                width={1064}
+                height={1890}
                 priority
                 alt="ticket"
                 className="h-full w-full"
               />
-              <div className=" absolute inset-x-0 top-[50%] w-full mx-auto ">
-                <div className="w-2/5 mx-auto flex flex-col gap-5">
-                  <div className="font-sans font-semibold  flex flex-col leading-tight">
-                    <h4 className="text-[#b61c1c] text-[25px]">
-                      {createNPId(ticketData?.id || 500)}
-                    </h4>
-                    <h2 className="text-[33px] text-black capitalize">
-                      {ticketData?.name || "Ajmal Yaseen"}
-                    </h2>
-                  </div>
+              <div className=" absolute inset-x-0 top-[58%] w-full mx-auto ">
+                <div className="w-[38%] mx-auto flex flex-col gap-3">
                   <div
                     style={{
                       height: "auto",
@@ -659,7 +633,7 @@ export function RegistrationForm() {
                       maxWidth: "100%",
                       width: "100%",
                     }}
-                    className="rounded-md p-2 bg-white"
+                    className="rounded-md p-2"
                   >
                     <QRCodeCanvas
                       style={{
@@ -667,11 +641,19 @@ export function RegistrationForm() {
                         maxWidth: "100%",
                         width: "100%",
                       }}
-                      bgColor="white"
-                      level="H"
+                      bgColor="transparent"
+                      level="Q"
                       size={844}
                       value={createNPId(ticketData?.id || 500)}
                     />
+                  </div>
+                  <div className="font-sans font-medium  flex flex-col leading-tight text-center">
+                    <h4 className="text-[#b61c1c] text-[50px]">
+                      {createNPId(ticketData?.id || 500)}
+                    </h4>
+                    <h2 className="text-[58px] text-black uppercase leading-tight">
+                      {ticketData?.name || "MUHAMMED SUHAIL A"}
+                    </h2>
                   </div>
                 </div>
               </div>

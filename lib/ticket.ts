@@ -17,8 +17,8 @@ export async function downloadCanvas(
   );
 
   const dataUrl = await toPng(posterRef.current, {
-    width: 719,
-    height: 1280,
+    width: 1064,
+    height: 1890,
     cacheBust: true,                 // forces a fresh GET so CORS headers are seen
     fetchRequestInit: {              // html‑to‑image passes this to every fetch()
       mode: 'cors',
@@ -27,8 +27,8 @@ export async function downloadCanvas(
     style: {
       transform: 'scale(1)',
       transformOrigin: 'top left',
-      width: '719px',
-      height: '12800px',
+      width: '1064px',
+      height: '1890px',
     },
   });
   if(ret) return dataUrl;

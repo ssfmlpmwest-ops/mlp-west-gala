@@ -144,25 +144,31 @@ const HeroSection = () => {
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       variants={containerVariants}
-      className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden px-4 bg-gradient-to-br from-secondary/60 via-background to-primary/60 bg-fixed"
+      className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden px-4 bg-gradient-to-b from-secondary/30 via-background via-60% to-secondary/40"
     >
       {/* Background Images */}
       <Image
-        className="opacity-50 absolute -right-40 w-3xl -bottom-5 -z-10"
-        src="/dotted-bg.png"
+        className="absolute -right-14 -top-20 drop-shadow-2xl drop-shadow-primary/70"
+        src="/redmsg.png"
         alt="dotted background"
-        width={1808}
-        height={746}
+        width={216}
+        height={179}
       />
       <Image
-        className="opacity-50 absolute -left-60 w-3xl -top-10 -z-10 rotate-90"
-        src="/dotted-bg.png"
+        className="absolute -left-18 -top-14 -z-10 drop-shadow-2xl drop-shadow-secondary/70"
+        src="/bluestarblur.png"
         alt="dotted background"
-        width={1808}
-        height={746}
+        width={146}
+        height={156}
+      />{" "}
+      <Image
+        className="absolute -right-28 -bottom-28 -z-10 drop-shadow-2xl drop-shadow-secondary/70 w-72"
+        src="/bluestarbigblur.png"
+        alt="dotted background"
+        width={208}
+        height={219}
       />
-
-      <div className="lg:py-20 py-10 flex flex-col gap-8 w-full max-w-6xl mx-auto">
+      <div className="lg:py-20 py-10 flex flex-col gap-10 w-full max-w-6xl mx-auto ">
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Text Content */}
@@ -194,26 +200,53 @@ const HeroSection = () => {
 
           {/* Right Column - Logo and Info */}
           <motion.div
-            className="flex flex-col gap-6 justify-center items-center px-2 lg:px-8 max-w-md w-full mx-auto"
+            className="flex flex-col justify-center items-center px-2 lg:px4 max-w-md w-full mx-auto relative"
             variants={itemVariants}
           >
+            <Image
+              src="/redstar.png"
+              alt="star"
+              width={146}
+              height={156}
+              className="absolute -top-8 -left-14 w-20 drop-shadow-2xl drop-shadow-primary/70"
+            />
+            <Image
+              src="hangmsg.png"
+              alt="hang"
+              width={720}
+              height={310}
+              className="w-3/4 mx-auto drop-shadow-2xl drop-shadow-secondary/40"
+            />
+            <div className="flex gap-2 items-center -mt-10">
+              <motion.div
+                variants={logoVariants}
+                className="drop-shadow-2xl drop-shadow-primary/70"
+              >
+                <h4 className="font-normal text-lg">
+                  Higher
+                  <br />
+                  Secondary
+                </h4>
+                <h3 className="font-bold text-2xl">Students'</h3>
+              </motion.div>
+              <motion.div
+                variants={logoVariants}
+                className="w-full max-w-xs lg:max-w-sm"
+              >
+                <Image
+                  src="/logo.png"
+                  width={667}
+                  height={374}
+                  alt="Students' Gala 2025 Logo"
+                  className="w-full h-auto object-cover drop-shadow-2xl drop-shadow-secondary/40"
+                  priority
+                />
+              </motion.div>
+            </div>
             {/* Logo */}
-            <motion.div
-              variants={logoVariants}
-              className="w-full max-w-xs lg:max-w-sm"
-            >
-              <Image
-                src="/logo.png"
-                width={667}
-                height={374}
-                alt="Students' Gala 2025 Logo"
-                className="w-full h-auto object-cover"
-                priority
-              />
-            </motion.div>
 
             {/* Date and Location */}
-            <motion.div
+            {/* <motion.div
               className="flex flex-row items-center justify-between w-full gap-2 "
               variants={infoVariants}
             >
@@ -233,27 +266,48 @@ const HeroSection = () => {
                 <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
                 <span className="font-semibold text-primary">Vadakkekad</span>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Register Button */}
-            <motion.div className="w-full mt-2" variants={buttonVariants}>
-              <motion.button
-                className="py-4 px-6 w-full bg-primary text-white font-bold text-xl lg:text-2xl rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                onClick={() => {
-                  window.scrollTo({
-                    top: document.getElementById("register")?.offsetTop,
-                    behavior: "smooth",
-                  });
-                }}
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                Register Now
-              </motion.button>
-            </motion.div>
           </motion.div>
         </div>
+        <motion.div
+          className="max-w-4xl mx-auto flex flex-col gap-6"
+          variants={benefitsVariants}
+        >
+          <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              "NextGen Talks",
+              "Gala League",
+              "Career Connect",
+              "Students Rally",
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                className="flex items-center justify-center gap-2 py-2 px-3 rounded-sm bg-zinc-200/60 border border-zinc-200  backdrop-blur-xs shadow-2xl"
+                variants={itemVariants}
+              >
+                <span className="text-lg font-semibold ">{item}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.div className="w-max mt-2 mx-auto" variants={buttonVariants}>
+            <motion.button
+              className="py-4 px-8 w-max bg-primary text-white font-bold text-xl lg:text-2xl rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+              onClick={() => {
+                window.scrollTo({
+                  top: document.getElementById("register")?.offsetTop,
+                  behavior: "smooth",
+                });
+              }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+            >
+              Register Now
+            </motion.button>
+          </motion.div>
+        </motion.div>
 
         {/* What Awaits You Section */}
         {/* <motion.div className="mt-8 lg:mt-12 " variants={benefitsVariants}>
