@@ -507,7 +507,7 @@ export function RegistrationForm() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="PLUS_ONE">Plus One</SelectItem>
-                    <SelectItem value="PLUS_TWO">Plus TWO</SelectItem>
+                    <SelectItem value="PLUS_TWO">Plus Two</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.class && (
