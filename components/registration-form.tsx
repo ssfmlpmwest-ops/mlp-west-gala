@@ -689,13 +689,13 @@ export function RegistrationForm() {
           </div>
         )}
       </Card>
-      {
+      {downloading && (
         <div className="fixed bg-white/50 inset-0 z-[999]">
           <div className="flex items-center justify-center h-screen">
             <Loader size={50} className="animate-spin text-primary" />
           </div>
         </div>
-      }
+      )}
     </>
   );
 }
