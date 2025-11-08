@@ -635,7 +635,7 @@ export function RegistrationForm() {
                   alt="ticket"
                   className="h-full w-full"
                 />
-                <div className=" absolute inset-x-0 top-[58%] w-full mx-auto ">
+                <div className=" absolute inset-x-0 top-[59%] w-full mx-auto ">
                   <div className="w-[38%] mx-auto flex flex-col gap-3">
                     <div
                       style={{
