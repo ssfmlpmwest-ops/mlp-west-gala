@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { DIVISIONS } from "@/lib/conts";
+import { DIVISIONS, SECTORS } from "@/lib/conts";
 import { createNPId } from "@/lib/utils";
 
 interface Attendee extends Registration {
@@ -52,15 +52,6 @@ interface Stats {
   }>;
 }
 
-const COLORS = [
-  "#dc2626",
-  "#2563eb",
-  "#16a34a",
-  "#ea580c",
-  "#7c3aed",
-  "#0891b2",
-];
-
 export function AdminDashboard() {
   const [stats, setStats] = useState<Stats>({
     totalRegistrations: 0,
@@ -73,6 +64,7 @@ export function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [division, setDivision] = useState("all");
+  const [sector, setSector] = useState("all");
   const fetchData = async () => {
     try {
       const response = await fetch("/api/admin/stats");
@@ -95,15 +87,15 @@ export function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    const filtered = attendees.filter((attendee) =>
-      (attendee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        attendee.mobile.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      division !== "all"
-        ? attendee.division === division
-        : true
+    const filtered = attendees.filter(
+      (attendee) =>
+        (attendee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          attendee.mobile.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        (division !== "all" ? attendee.division === division : true) &&
+        (sector !== "all" ? attendee.sector === sector : true)
     );
     setFilteredAttendees(filtered);
-  }, [searchTerm, attendees, division]);
+  }, [searchTerm, attendees, division, sector]);
 
   const handleExportCSV = () => {
     const headers = [
@@ -112,6 +104,7 @@ export function AdminDashboard() {
       "Class",
       "School",
       "Division",
+      "Sector",
       "Mobile",
       "DOB",
       "Registered At",
@@ -124,6 +117,7 @@ export function AdminDashboard() {
       a.class,
       a.school,
       a.division,
+      a.sector || "-",
       a.mobile,
       a.dob,
       new Date(a.createdAt).toLocaleString(),
@@ -326,7 +320,10 @@ export function AdminDashboard() {
             <div className="max-w-60">
               <Select
                 value={division}
-                onValueChange={(value) => setDivision(value)}
+                onValueChange={(value) => {
+                  setDivision(value);
+                  setSector("all");
+                }}
               >
                 <SelectTrigger id="division">
                   <SelectValue placeholder="Select division" />
@@ -339,6 +336,27 @@ export function AdminDashboard() {
                       {div}
                     </SelectItem>
                   ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="max-w-60">
+              <Select
+                value={sector}
+                onValueChange={(value) => setSector(value)}
+                disabled={division === "all"}
+              >
+                <SelectTrigger id="sector">
+                  <SelectValue placeholder="Select Sector" />
+                </SelectTrigger>
+
+                <SelectContent>
+                  <SelectItem value={"all"}>All Sectors</SelectItem>
+                  {division !== "all" &&
+                    SECTORS[division as keyof typeof SECTORS].map((div) => (
+                      <SelectItem key={div} value={div}>
+                        {div}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             </div>
@@ -373,6 +391,7 @@ export function AdminDashboard() {
                 <th className="text-left py-3 px-4 font-semibold">Name</th>
                 <th className="text-left py-3 px-4 font-semibold">Class</th>
                 <th className="text-left py-3 px-4 font-semibold">Division</th>
+                <th className="text-left py-3 px-4 font-semibold">Sector</th>
                 <th className="text-left py-3 px-4 font-semibold">School</th>
                 <th className="text-left py-3 px-4 font-semibold">Mobile</th>
                 <th className="text-left py-3 px-4 font-semibold">DOB</th>
@@ -392,6 +411,7 @@ export function AdminDashboard() {
                     {attendee.class}
                   </td>
                   <td className="py-3 px-4">{attendee.division}</td>
+                  <td className="py-3 px-4">{attendee.sector || "-"}</td>
                   <td className="py-3 px-4">{attendee.school}</td>
                   <td className="py-3 px-4">{attendee.mobile}</td>
                   <td className="py-3 px-4">{attendee.dob}</td>

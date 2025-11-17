@@ -22,6 +22,7 @@ async function DivisionPage({
   const registerations = await Registeration.getRegisterations({ division:name });
   return (
     <main className="min-h-screen bg-background">
+      
       <DivisionDashboard attendees={registerations} division={name}/>
     </main>
   );

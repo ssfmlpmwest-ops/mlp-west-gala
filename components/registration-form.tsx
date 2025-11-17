@@ -27,7 +27,7 @@ import {
 import { motion } from "framer-motion";
 import { getRegistration, register } from "@/functions/registeration";
 import { CustomCombobox } from "./ui/combobox";
-import { COURSES, DIVISIONS, SCHOOLS } from "@/lib/conts";
+import { DIVISIONS, SCHOOLS, SECTORS } from "@/lib/conts";
 import Image from "next/image";
 import { createNPId } from "@/lib/utils";
 import { Registration } from "@/lib/generated/prisma/client";
@@ -41,6 +41,7 @@ interface FormData {
   class: "PLUS_ONE" | "PLUS_TWO" | string;
   division: string;
   school: string;
+  sector: string;
 }
 
 interface FormErrors {
@@ -58,6 +59,7 @@ export function RegistrationForm() {
     class: "",
     division: "",
     school: "",
+    sector: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -323,6 +325,7 @@ export function RegistrationForm() {
       class: "",
       division: "",
       school: "",
+      sector: "",
     });
     setCheckStatus("idle");
     setIsFormReady(false);
@@ -553,23 +556,52 @@ export function RegistrationForm() {
                     <p className="text-sm text-red-600">{errors.division}</p>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <CustomCombobox
-                    value={formData.school}
+                <div className="space-y-2 w-full">
+                  <Label htmlFor="division">Sector (Optional)</Label>
+                  <Select
+                    value={formData.sector || "not"}
                     onValueChange={(value) =>
-                      handleSelectChange("school", value)
+                      handleSelectChange("sector", value === "not" ? "" : value)
                     }
-                    options={SCHOOLS.map((school) => school.name)}
-                    placeholder="Select school or type custom value"
-                    disabled={checkStatus === "found"}
-                    error={!!errors.school}
-                    label="School *"
-                    emptyMessage="No schools found. Type to add a custom school."
-                  />
-                  {errors.school && (
-                    <p className="text-sm text-red-600">{errors.school}</p>
+                    disabled={checkStatus === "found" || !formData.division}
+                  >
+                    <SelectTrigger
+                      id="sector"
+                      className={errors.sector ? "border-red-500" : ""}
+                    >
+                      <SelectValue placeholder="Select Sector" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="not">Not Prefered</SelectItem>
+                      {formData.division &&
+                        SECTORS[formData.division as keyof typeof SECTORS].map(
+                          (div) => (
+                            <SelectItem key={div} value={div}>
+                              {div}
+                            </SelectItem>
+                          )
+                        )}
+                    </SelectContent>
+                  </Select>
+                  {errors.sector && (
+                    <p className="text-sm text-red-600">{errors.sector}</p>
                   )}
                 </div>
+              </div>
+              <div className="space-y-2">
+                <CustomCombobox
+                  value={formData.school}
+                  onValueChange={(value) => handleSelectChange("school", value)}
+                  options={SCHOOLS.map((school) => school.name)}
+                  placeholder="Select school or type custom value"
+                  disabled={checkStatus === "found"}
+                  error={!!errors.school}
+                  label="School *"
+                  emptyMessage="No schools found. Type to add a custom school."
+                />
+                {errors.school && (
+                  <p className="text-sm text-red-600">{errors.school}</p>
+                )}
               </div>
 
               {/* Submit button - only show if not already registered */}
